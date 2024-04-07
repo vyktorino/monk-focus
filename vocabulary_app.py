@@ -109,6 +109,12 @@ class VocabularyApp:
     def save_sentence(self):
         sentence = self.txt_sentence.get("1.0", "end-1c")
         word = self.new_sentence_widgets["lbl_words"].cget("text")
+
+        # Check if the sentence length is zero
+        if len(sentence.strip()) == 0:
+            tkMessageBox.showerror("Error", "Please enter a non-empty sentence.")
+            return
+
         difficulty_score = self.db.analyze_sentence_difficulty(sentence)
 
         self.db.save_sentence(word, sentence, difficulty_score)
